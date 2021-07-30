@@ -2,6 +2,7 @@ export default class Observer {
 
   constructor(value) {
     this.value = value
+    this.value.__ob__ = this
     if (Array.isArray(value)) {
 
     } else {
@@ -19,6 +20,8 @@ export default class Observer {
 }
 
 function createObserver(value) {
+  let ob = value.__ob__
+  if (ob) return ob
   if (Array.isArray(value) || typeof value === 'object') {
     return new Observer(value)
   }
