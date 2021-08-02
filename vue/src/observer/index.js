@@ -2,7 +2,10 @@ export default class Observer {
 
   constructor(value) {
     this.value = value
-    this.value.__ob__ = this
+    Object.defineProperty(this.value, '__ob__', {
+      configurable: false,
+      value: this
+    })
     if (Array.isArray(value)) {
 
     } else {
